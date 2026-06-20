@@ -17,7 +17,7 @@ jobs:
               with:
                 enable-cache: true
                 cache-dependency-glob:
-                    pyptoject.toml
+                    pyproject.toml
                     uv.lock
 
             - name: Install dependencies
