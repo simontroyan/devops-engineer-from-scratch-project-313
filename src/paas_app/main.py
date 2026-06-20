@@ -26,6 +26,11 @@ def create_app():
     def internal_error(e):
         return {"error": "Internal server error"}, 500
 
+    @app.route("/debug-sentry")
+    def trigger_error():
+        division_by_zero = 1 / 0
+        return str(division_by_zero)
+
 
     return app
 
