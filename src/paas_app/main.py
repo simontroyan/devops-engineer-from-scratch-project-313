@@ -1,5 +1,15 @@
+import os
+
+import sentry_sdk
 from flask import Flask
 
+sentry_dsn = os.getenv("SENTRY_DSN")
+
+if sentry_dsn:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        send_default_pii=True
+    )
 
 def create_app():
     app = Flask(__name__)
