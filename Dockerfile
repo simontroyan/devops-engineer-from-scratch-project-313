@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["uv", "run", "flask", "--app", "src.paas_app.main", "run", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uv", "run", "flask", "--app", "src.app.main", "run", "--host", "0.0.0.0", "--port", "8080"]

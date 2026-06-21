@@ -1,7 +1,7 @@
 .PHONY: run test lint safe-run
 
 run:
-	flask --app src.paas_app.main run
+	flask --app src.app.main run
 
 test:
 	pytest
