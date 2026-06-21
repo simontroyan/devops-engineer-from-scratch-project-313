@@ -10,10 +10,11 @@ def get_all_links(session: Session, offset: int = 0, limit: int = 10):
 def get_link_by_id(session: Session, id: int):
     return session.get(Link, id)
 
-def create_link(session: Session, original_url: str, short_name: str):
+def create_link(session: Session, original_url: str, short_name: str, short_url: str):
     link = Link(
         original_url=original_url,
-        short_name=short_name
+        short_name=short_name,
+        short_url=short_url
     )
     session.add(link)
     session.commit()
@@ -21,7 +22,7 @@ def create_link(session: Session, original_url: str, short_name: str):
 
     return link
 
-def update_link(session: Session, id: int, original_url: str, short_name: str):
+def update_link(session: Session, id: int, original_url: str, short_name: str, short_url:str):
     link = session.get(Link, id)
 
     if link is None:
@@ -29,6 +30,7 @@ def update_link(session: Session, id: int, original_url: str, short_name: str):
 
     link.original_url = original_url
     link.short_name = short_name
+    link.short_url=short_url
 
     session.add(link)
     session.commit()

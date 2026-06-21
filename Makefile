@@ -4,7 +4,7 @@ run:
 	flask --app src.app.main run
 
 test:
-	pytest
+	PYTHONPATH=src uv run pytest
 
 lint:
 	uv run ruff check . --fix
