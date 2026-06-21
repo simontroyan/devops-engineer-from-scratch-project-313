@@ -1,6 +1,6 @@
 import pytest
 
-from src.paas_app.main import create_app
+from src.app.main import create_app
 
 
 @pytest.fixture
