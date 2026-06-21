@@ -101,7 +101,7 @@ def test_update_link(session):
     assert updated_link.original_url == "https://example.com/long-url"
     assert updated_link.short_name == "newexmpl"
     assert updated_link.short_url == "https://short.io/r/newexmpl"
-    
+
 def test_update_link_none(session):
     updated_link = update_link(
                 session,
