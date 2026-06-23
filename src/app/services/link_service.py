@@ -13,11 +13,14 @@ from app.repositories.link_repository import (
 class LinkAlreadyExistsError(Exception):
     pass
 
+
 class LinkNotFoundError(Exception):
     pass
 
+
 class NotAllowedToUpdate(Exception):
     pass
+
 
 def create_link_service(session, original_url: str, short_name: str):
     base_url = os.getenv("BASE_URL")
@@ -32,11 +35,13 @@ def create_link_service(session, original_url: str, short_name: str):
 
     return create_link(session, original_url, short_name, short_url)
 
+
 def get_all_links_service(session, range):
     offset = range[0]
     limit = range[1]
 
     return get_all_links(session, offset, limit)
+
 
 def get_link_by_id_service(session, id: int):
     link = get_link_by_id(session, id)
@@ -46,6 +51,7 @@ def get_link_by_id_service(session, id: int):
 
     return link
 
+
 def delete_link_service(session, id: int):
     deleted_link = delete_link(session, id)
 
@@ -53,6 +59,7 @@ def delete_link_service(session, id: int):
         raise LinkNotFoundError()
 
     return deleted_link
+
 
 def update_link_service(session, id: int, original_url: str, short_name: str):
     base_url = os.getenv("BASE_URL")

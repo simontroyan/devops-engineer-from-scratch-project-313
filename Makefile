@@ -1,4 +1,4 @@
-.PHONY: run test lint safe-run
+.PHONY: run test lint format safe-run
 
 run:
 	flask --app src.app.main run
@@ -9,7 +9,11 @@ test:
 lint:
 	uv run ruff check . --fix
 
+format:
+	uv run ruff format .
+
 safe-run:
 	$(MAKE) lint
+	$(MAKE) format
 	$(MAKE) test
 	$(MAKE) run
