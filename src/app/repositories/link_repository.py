@@ -10,6 +10,11 @@ def get_all_links(session: Session, offset: int = 0, limit: int = 10):
 def get_link_by_id(session: Session, id: int):
     return session.get(Link, id)
 
+def get_link_by_name(session: Session, short_name: str):
+    statement = select(Link).where(Link.short_name == short_name)
+
+    return session.exec(statement).first()
+
 def create_link(session: Session, original_url: str, short_name: str, short_url: str):
     link = Link(
         original_url=original_url,
