@@ -33,11 +33,6 @@ def links_post():
         return {"short_name": link.short_name, "short_url": link.short_url}, 201
     except LinkAlreadyExistsError:
         return {"error": "Link already exists"}, 409
-    except KeyError:
-        return {"error": "Missing required field"}, 400
-    except ValueError:
-        return {"error": "Server configuration error"}, 500
-
 
 @link_api.get("/api/links/")
 def links_get():
