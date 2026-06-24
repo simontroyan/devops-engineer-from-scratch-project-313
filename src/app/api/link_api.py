@@ -17,7 +17,7 @@ from app.services.link_service import (
 link_api = Blueprint("link_api", __name__)
 
 
-@link_api.post("/api/links/")
+@link_api.post("/api/links")
 def links_post():
     data = request.get_json()
 
@@ -34,7 +34,7 @@ def links_post():
     except LinkAlreadyExistsError:
         return {"error": "Link already exists"}, 409
 
-@link_api.get("/api/links/")
+@link_api.get("/api/links")
 def links_get():
     range_raw = request.args.get("range", "[0,10]")
 

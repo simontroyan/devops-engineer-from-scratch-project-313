@@ -33,7 +33,7 @@ def client(monkeypatch):
 
 def test_create_link(client):
     response = client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -49,7 +49,7 @@ def test_create_link(client):
 
 def test_create_link_bad_body(client):
     response = client.post(
-        "/api/links/",
+        "/api/links",
         data="null",
         content_type="application/json")
 
@@ -58,7 +58,7 @@ def test_create_link_bad_body(client):
 
 def test_create_link_already_exist(client):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -66,7 +66,7 @@ def test_create_link_already_exist(client):
     )
 
     response_2 = client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -78,14 +78,14 @@ def test_create_link_already_exist(client):
 
 def test_get_all_links(client):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
         },
     )
 
-    response = client.get("/api/links/?range=[0,10]")
+    response = client.get("/api/links?range=[0,10]")
 
     assert response.status_code == 200
 
@@ -97,7 +97,7 @@ def test_get_all_links(client):
 
 def test_get_link(client, monkeypatch):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -110,7 +110,7 @@ def test_get_link(client, monkeypatch):
 
 def test_get_all_link(client):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -118,20 +118,20 @@ def test_get_all_link(client):
     )
 
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex2",
         },
     )
 
-    response = client.get("/api/links/")
+    response = client.get("/api/links")
 
     assert response.status_code == 200
 
 def test_update_link(client):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
@@ -153,7 +153,7 @@ def test_update_link(client):
 
 def test_delete_link(client):
     client.post(
-        "/api/links/",
+        "/api/links",
         json={
             "original_url": "https://short.com",
             "short_name": "ex1",
