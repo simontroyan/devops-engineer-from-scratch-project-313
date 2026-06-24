@@ -4,6 +4,7 @@ import sentry_sdk
 from flask import Flask
 
 from app.api.link_api import link_api
+from app.db.session import create_db_and_tables
 
 sentry_dsn = os.getenv("SENTRY_DSN")
 
@@ -13,6 +14,7 @@ if sentry_dsn:
 
 def create_app():
     app = Flask(__name__)
+    create_db_and_tables()
     app.register_blueprint(link_api)
 
     return app
