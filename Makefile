@@ -4,7 +4,7 @@ run:
 	flask --app src.app.main run
 
 test:
-	DATABASE_URL=sqlite:///test.db PYTHONPATH=src uv run pytest --cov=app --cov-report=term-missing
+	DATABASE_URL=sqlite:///test.db PYTHONPATH=src uv run pytest -s --cov=app --cov-report=term-missing
 
 lint:
 	uv run ruff check . --fix

@@ -27,7 +27,7 @@ def test_create_link_service(session, monkeypatch):
 
     link = create_link_service(
         session=session,
-        original_url="https://example.com",
+        original_url="https://short.com",
         short_name="ex"
     )
 
@@ -39,7 +39,7 @@ def test_create_link_service_no_base_url(session, monkeypatch):
     with pytest.raises(ValueError):
         create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex"
         )
 
@@ -48,14 +48,14 @@ def test_create_link_service_duplicate(session, monkeypatch):
 
     create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex"
         )
 
     with pytest.raises(LinkAlreadyExistsError):
         create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex"
         )
 
@@ -64,13 +64,13 @@ def test_get_all_links_service(session, monkeypatch):
 
     link_1 = create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex1"
         )
 
     link_2 = create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex2"
         )
 
@@ -85,7 +85,7 @@ def test_get_link_by_id_service(session, monkeypatch):
 
     link_1 = create_link_service(
             session=session,
-            original_url="https://example.com",
+            original_url="https://short.com",
             short_name="ex1"
         )
 
@@ -101,7 +101,7 @@ def test_get_link_by_id_not_found(session, monkeypatch):
 
     create_link_service(
         session=session,
-        original_url="https://example.com",
+        original_url="https://short.com",
         short_name="ex1"
     )
 
@@ -113,7 +113,7 @@ def test_delete_link_service(session, monkeypatch):
 
     link = create_link_service(
         session=session,
-        original_url="https://example.com",
+        original_url="https://short.com",
         short_name="ex"
     )
 
@@ -127,7 +127,7 @@ def test_delete_link_not_found_service(session, monkeypatch):
 
     create_link_service(
         session=session,
-        original_url="https://example.com",
+        original_url="https://short.com",
         short_name="ex"
     )
 
@@ -139,7 +139,7 @@ def test_update_link_service(session, monkeypatch):
 
     link = create_link_service(
         session=session,
-        original_url="https://example.com",
+        original_url="https://short.com",
         short_name="ex"
     )
 
