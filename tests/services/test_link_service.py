@@ -74,11 +74,12 @@ def test_get_all_links_service(session, monkeypatch):
             short_name="ex2"
         )
 
-    result = get_all_links_service(session, range=[0,1])
+    links, total = get_all_links_service(session, 0, 0)
 
-    assert len(result) == 1
-    assert link_1 in result
-    assert link_2 not in result
+    assert len(links) == 1
+    assert total == 2
+    assert link_1 in links
+    assert link_2 not in links
 
 def test_get_link_by_id_service(session, monkeypatch):
     monkeypatch.setenv("BASE_URL", "https://short.com")
