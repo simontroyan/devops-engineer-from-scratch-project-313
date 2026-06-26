@@ -1,6 +1,6 @@
 import json
 
-from flask import Blueprint, request
+from flask import Blueprint, make_response, request
 from sqlmodel import Session
 
 from app.db.session import engine
@@ -30,7 +30,16 @@ def links_post():
                 session=session, original_url=data["original_url"], short_name=data["short_name"]
             )
 
-        return {"short_name": link.short_name, "short_url": link.short_url}, 201
+        response = make_response(
+            {
+            "id": link.id,
+            "original_url": link.original_url,
+            "short_name": link.short_name,
+            "short_url": link.short_url
+            }
+        , 201)
+
+        return response
     except LinkAlreadyExistsError:
         return {"error": "Link already exists"}, 409
 
@@ -50,14 +59,24 @@ def links_get():
     ):
         return {"error": "Range must be [offset, limit]"}, 400
 
+    start = range_values[0]
+    end = range_values[1]
+
     with Session(engine) as session:
-        links = get_all_links_service(session, range_values)
+        links, total = get_all_links_service(session, start, end)
 
-    return [
-        {"id": link.id, "original_url": link.original_url, "short_name": link.short_name, "short_url": link.short_url}
+    response = make_response([
+        {
+            "id": link.id,
+            "original_url": link.original_url,
+            "short_name": link.short_name,
+            "short_url": link.short_url,
+        }
         for link in links
-    ], 200
+    ], 200)
 
+    response.headers["Content-Range"] = f'links {start}-{end}/{total}'
+    return response
 
 @link_api.get("/api/links/<int:link_id>")
 def link_get(link_id):

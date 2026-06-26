@@ -2,6 +2,7 @@ import os
 
 import sentry_sdk
 from flask import Flask
+from flask_cors import CORS
 
 from app.api.link_api import link_api
 from app.db.session import create_db_and_tables
@@ -21,6 +22,12 @@ def create_app():
 
 
 app = create_app()
-
+CORS(app, resources={
+    r"/api/*": {
+        "origins": "http://localhost:5173",
+        "expose_headers": ["Content-Range"]
+        }
+    },
+     )
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)

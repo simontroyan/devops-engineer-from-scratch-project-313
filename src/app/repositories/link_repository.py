@@ -1,7 +1,11 @@
-from sqlmodel import Session, select
+from sqlmodel import Session, func, select
 
 from app.models.link import Link
 
+
+def get_links_count(session: Session):
+    statement = select(func.count()).select_from(Link)
+    return session.exec(statement).one()
 
 def get_all_links(session: Session, offset: int = 0, limit: int = 10):
     statement = select(Link).offset(offset).limit(limit)

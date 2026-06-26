@@ -6,6 +6,7 @@ from app.repositories.link_repository import (
     get_all_links,
     get_link_by_id,
     get_link_by_name,
+    get_links_count,
     update_link,
 )
 
@@ -36,11 +37,14 @@ def create_link_service(session, original_url: str, short_name: str):
     return create_link(session, original_url, short_name, short_url)
 
 
-def get_all_links_service(session, range):
-    offset = range[0]
-    limit = range[1]
+def get_all_links_service(session, start, end):
+    offset = start
+    limit = end - start + 1
 
-    return get_all_links(session, offset, limit)
+    links = get_all_links(session, offset, limit)
+    total = get_links_count(session)
+
+    return links, total
 
 
 def get_link_by_id_service(session, id: int):
