@@ -24,6 +24,9 @@ def links_post():
     if data is None:
         return {"error": "Invalid JSON body"}, 400
 
+    if not isinstance(data, dict) or "original_url" not in data or "short_name" not in data:
+        return {"detail": {"error": "Missing required fields"}}, 422
+
     try:
         with Session(engine) as session:
             link = create_link_service(
@@ -84,7 +87,7 @@ def link_get(link_id):
         with Session(engine) as session:
             link = get_link_by_id_service(session, link_id)
     except LinkNotFoundError:
-        return {"error": "Link not found"}, 404
+        return {"detail": "Link not found"}, 404
 
     return {
         "id": link.id,
@@ -100,7 +103,7 @@ def link_delete(link_id):
         with Session(engine) as session:
             delete_link_service(session, link_id)
     except LinkNotFoundError:
-        return {"error": "Link not found"}, 404
+        return {"detail": "Link not found"}, 404
 
     return "", 204
 
@@ -112,6 +115,10 @@ def link_update(link_id):
     if data is None:
         return {"error": "Invalid JSON body"}, 400
 
+    if not isinstance(data, dict) or "original_url" not in data or "short_name" not in data:
+        return {"detail": {"error": "Missing required fields"}}, 422
+
+
     try:
         with Session(engine) as session:
             link = update_link_service(
@@ -119,7 +126,7 @@ def link_update(link_id):
             )
 
     except LinkNotFoundError:
-        return {"error": "Link not found"}, 404
+        return {"detail": "Link not found"}, 404
     except LinkAlreadyExistsError:
         return {"error": "Link already exists"}, 409
     except KeyError:
