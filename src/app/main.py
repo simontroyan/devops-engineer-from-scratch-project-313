@@ -18,6 +18,10 @@ def create_app():
     create_db_and_tables()
     app.register_blueprint(link_api)
 
+    @app.get("/ping")
+    def ping():
+        return "pong", 200
+
     return app
 
 

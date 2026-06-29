@@ -45,7 +45,7 @@ def test_create_link(client):
     data = response.get_json()
 
     assert data["short_name"] == "ex1"
-    assert data["short_url"] == "https://short.com/ex1"
+    assert data["short_url"] == "https://short.com/r/ex1"
 
 def test_create_link_bad_body(client):
     response = client.post(
@@ -93,7 +93,7 @@ def test_get_all_links(client):
 
     assert len(data) == 1
     assert data[0]["short_name"] == "ex1"
-    assert data[0]["short_url"] == "https://short.com/ex1"
+    assert data[0]["short_url"] == "https://short.com/r/ex1"
 
 def test_get_link(client, monkeypatch):
     client.post(
@@ -106,7 +106,6 @@ def test_get_link(client, monkeypatch):
 
     response = client.get("/api/links/1")
     assert response.status_code == 200
-    # assert response["short_url"] == "https://short.com/ex1"
 
 def test_get_all_link(client):
     client.post(
@@ -149,7 +148,7 @@ def test_update_link(client):
     get_response_2 = client.get("/api/links/1")
 
     assert response_2.status_code == 200
-    assert get_response_2.get_json()["short_url"] == "https://short.com/ex2"
+    assert get_response_2.get_json()["short_url"] == "https://short.com/r/ex2"
 
 def test_delete_link(client):
     client.post(
@@ -165,4 +164,4 @@ def test_delete_link(client):
     get_response_2 = client.get("/api/links/1")
 
     assert response.status_code == 204
-    assert get_response_2.get_json() == {'error': 'Link not found'}
+    assert get_response_2.get_json() == {'detail': 'Link not found'}

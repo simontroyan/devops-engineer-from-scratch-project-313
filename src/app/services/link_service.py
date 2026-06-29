@@ -32,7 +32,7 @@ def create_link_service(session, original_url: str, short_name: str):
     if _is_link_duplicate(session, short_name):
         raise LinkAlreadyExistsError()
 
-    short_url = f"{base_url}/{short_name}"
+    short_url = f"{base_url}/r/{short_name}"
 
     return create_link(session, original_url, short_name, short_url)
 
@@ -81,7 +81,7 @@ def update_link_service(session, id: int, original_url: str, short_name: str):
     if link_with_same_name is not None and link_with_same_name.id != id:
         raise LinkAlreadyExistsError()
 
-    short_url = f"{base_url}/{short_name}"
+    short_url = f"{base_url}/r/{short_name}"
 
     return update_link(session, id, original_url, short_name, short_url)
 

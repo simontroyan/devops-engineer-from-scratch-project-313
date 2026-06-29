@@ -31,7 +31,7 @@ def test_create_link_service(session, monkeypatch):
         short_name="ex"
     )
 
-    assert link.short_url == "https://short.com/ex"
+    assert link.short_url == "https://short.com/r/ex"
 
 def test_create_link_service_no_base_url(session, monkeypatch):
     monkeypatch.delenv("BASE_URL", raising=False)
@@ -151,4 +151,4 @@ def test_update_link_service(session, monkeypatch):
         short_name = "new"
     )
 
-    assert link.short_url == "https://short.com/new"
+    assert link.short_url == "https://short.com/r/new"
